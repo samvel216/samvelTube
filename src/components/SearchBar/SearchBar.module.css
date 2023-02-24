@@ -1,0 +1,12 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 40px;
+}
+.menuBtn {
+    margin-right: 20px;
+}
+.createBtn {
+    margin-right: 20px;
+}
