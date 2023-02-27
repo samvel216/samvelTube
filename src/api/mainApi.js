@@ -1,7 +1,7 @@
 const cache = {};
 
 function displayPopularVideos(maxResults) {
-  const apiUrl = `https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=${maxResults}&thumbnailUrl&key=${"AIzaSyCRJTBUlnM6DtxinjfBQ0FJSBniAM4DmIU"}`;
+  const apiUrl = `https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=${maxResults}&snippet&key=${"AIzaSyCRJTBUlnM6DtxinjfBQ0FJSBniAM4DmIU"}`;
 
   if (cache[apiUrl] && cache[apiUrl].expiry > Date.now()) {
     return Promise.resolve(cache[apiUrl].data);
@@ -15,23 +15,17 @@ function displayPopularVideos(maxResults) {
       return response.json();
     })
     .then((data) => {
-      const videoData = data.items.map((item) => ({
-        id: item.id,
-        thumbnailUrl: item.snippet.thumbnails.high.url,
-      }));
-      cache[apiUrl] = {
-        data: videoData,
-        expiry: Date.now() + 300000, // 5 minutes
-      };
-      return videoData;
+      const videoIds = data.items.map((item) => item.id);
+      console.log(videoIds)
+      return videoIds;
     })
     .catch((error) => {
       console.error(error);
     });
 }
 
-
 export { displayPopularVideos };
+
 
 
   

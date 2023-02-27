@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import style from "./SearchBar.module.css";
 import Navigation from '../Navigation/Navigation';
+import { ReactComponent as ListIcon } from '../../images/spryte.svg';
 
 function SearchBar(props) {
   const [query, setQuery] = useState('');
@@ -23,10 +24,12 @@ function SearchBar(props) {
     <div className={style.container}>   
      {showNavigation && <Navigation />}
       <div>
-        <button className={style.menuBtn} onClick={handleMenuClick}>мЕНЮ</button>
+        <button className={style.menuBtn} onClick={handleMenuClick}>
+        <ListIcon className={style.icon}/>
+        </button>
         <a href="">СамвелТуб</a>
       </div>
-
+     
       <form onSubmit={handleSubmit}>
         <input
           type="text"

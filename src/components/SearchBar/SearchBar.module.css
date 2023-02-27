@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 40px;
+  margin: 40px 0;
 }
 .menuBtn {
     margin-right: 20px;
@@ -10,3 +10,10 @@
 .createBtn {
     margin-right: 20px;
 }
+.icon {
+    width: 50px;
+    height: auto;
+
+
+    fill: currentColor;
+  }

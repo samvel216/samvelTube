@@ -1,20 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const VideoPlayer = ({ videoId }) => {
+const Video = ({ videoId }) => {
   const srcUrl = `https://www.youtube.com/embed/${videoId}`;
-
   return (
-    <div className="video-player">
+    <div className="video-wrapper">
       <iframe
         title={videoId}
-        width="560"
-        height="315"
+        width="400"
+        height="250"
         src={srcUrl}
         frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
-      ></iframe>
+      />
+    </div>
+  );
+};
+
+Video.propTypes = {
+  videoId: PropTypes.string.isRequired,
+};
+
+const VideoPlayer = ({ videoId }) => {
+  return (
+    <div>
+      <Video videoId={videoId} />
     </div>
   );
 };
@@ -23,4 +34,4 @@ VideoPlayer.propTypes = {
   videoId: PropTypes.string.isRequired,
 };
 
-export  {VideoPlayer};
+export { VideoPlayer };

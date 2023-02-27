@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { displayPopularVideos } from '../api/mainApi';
 import { SearchBar } from './SearchBar/SearchBar';
 import { VideoList } from './PopularVideos/PopularVideos';
-import {VideoPlayer} from './VideoPlayer/VideoPlayer';
-import './PopularVideos/PopularVideos.module.css';
+import { VideoPlayer } from './VideoPlayer/VideoPlayer';
+import style from './PopularVideos/PopularVideos.module.css';
 
 function handleScrollAddNumber(maxResults, setMaxResults) {
   const handleScroll = () => {
@@ -20,6 +20,7 @@ function handleScrollAddNumber(maxResults, setMaxResults) {
   };
 }
 
+
 function App() {
   const [maxResults, setMaxResults] = useState(10);
   const [videoIds, setVideoIds] = useState([]);
@@ -27,6 +28,7 @@ function App() {
   useEffect(() => {
     async function fetchVideoIds() {
       const ids = await displayPopularVideos(maxResults);
+      console.log(ids);
       setVideoIds(ids);
     }
     fetchVideoIds();
@@ -39,10 +41,19 @@ function App() {
     };
   }, [maxResults]);
 
+ 
+
   return (
-    <div>
-      <SearchBar />   
-      <VideoList videoIds={videoIds} />
+    <div className={style.container}>
+      <SearchBar onSubmit={(query) => console.log(query)} />
+      {videoIds && videoIds.length > 0 ? (
+        <>
+          {/* <VideoPlayer videoId={videoIds} /> */}
+          <VideoList videoIds={videoIds} />
+        </>
+      ) : (
+        <p>Loading...</p>
+      )}
     </div>
   );
 }
