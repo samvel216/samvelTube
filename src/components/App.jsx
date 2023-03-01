@@ -4,6 +4,7 @@ import { SearchBar } from './SearchBar/SearchBar';
 import { VideoList } from './PopularVideos/PopularVideos';
 import { VideoPlayer } from './VideoPlayer/VideoPlayer';
 import style from './PopularVideos/PopularVideos.module.css';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 function handleScrollAddNumber(maxResults, setMaxResults) {
   const handleScroll = () => {
@@ -20,16 +21,15 @@ function handleScrollAddNumber(maxResults, setMaxResults) {
   };
 }
 
-
-function App() {
+function Home() {
   const [maxResults, setMaxResults] = useState(10);
-  const [videoIds, setVideoIds] = useState([]);
+  const [videoInfo, setVideoInfo] = useState([]);
 
   useEffect(() => {
     async function fetchVideoIds() {
       const ids = await displayPopularVideos(maxResults);
-      console.log(ids);
-      setVideoIds(ids);
+      console.log(ids[0].snippet);
+      setVideoInfo(ids);
     }
     fetchVideoIds();
   }, [maxResults]);
@@ -41,19 +41,41 @@ function App() {
     };
   }, [maxResults]);
 
- 
+  const [videoUrl, setVideoUrl] = useState('');
+
+  const handleVideoClick = (url) => {
+    setVideoUrl(url);
+  };
+
+  return (
+    <>
+   
+      {videoUrl ? (
+        <Navigate to={`/video/${videoUrl}`} />
+      ) : (
+        <>
+          {videoInfo && videoInfo.length > 0 ? (
+            <>
+              <VideoList videoIds={videoInfo} onVideoClick={handleVideoClick} />
+            </>
+          ) : (
+            <p>Loading...</p>
+          )}
+        </>
+      )}
+    </>
+  );
+}
+
+function App() {
 
   return (
     <div className={style.container}>
-      <SearchBar onSubmit={(query) => console.log(query)} />
-      {videoIds && videoIds.length > 0 ? (
-        <>
-          {/* <VideoPlayer videoId={videoIds} /> */}
-          <VideoList videoIds={videoIds} />
-        </>
-      ) : (
-        <p>Loading...</p>
-      )}
+         <SearchBar onSubmit={(query) => console.log(query)} />
+      <Routes>
+        <Route path="/samvelTube" element={<Home />} />
+        <Route path="video/:videoId" element={<VideoPlayer />} />
+      </Routes>
     </div>
   );
 }

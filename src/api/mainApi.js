@@ -15,8 +15,8 @@ function displayPopularVideos(maxResults) {
       return response.json();
     })
     .then((data) => {
-      const videoIds = data.items.map((item) => item.id);
-      console.log(videoIds)
+      const videoIds = data.items.map((item) => item);
+      console.log(data)
       return videoIds;
     })
     .catch((error) => {

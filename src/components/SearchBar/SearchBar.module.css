@@ -2,18 +2,79 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-  margin: 40px 0;
 }
 .menuBtn {
     margin-right: 20px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+}
+.SamviTubeLink {
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 700;
+  font-style: italic;
+  color: rgb(0, 68, 255);
+  display: flex;
+  align-items: center;
+  padding: 25px 0px;
+}
+.SamviTubeSpan {
+  color: rgb(253, 0, 0);
+  
+}
+.menuContainer {
+  width: 20%;
+  display: flex;
+  align-items: center;
 }
 .createBtn {
     margin-right: 20px;
+  
 }
 .icon {
-    width: 50px;
+    width: 24px;
     height: auto;
-
-
     fill: currentColor;
+  }
+  .searchForm {
+    width: 48%;
+    display: flex;
+    position: relative;
+  }
+  .searchBtn {
+    width: 64px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 0%;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+  }
+  .searchInput {
+    width: 100%;
+    height: 40px;
+    padding-left: 15px;
+    border-radius: 25px;
+  }
+  .iconS {
+    width: 20px;
+    fill:  rgb(255, 72, 0);;
+  }
+  .iconSearch {
+    width: 24px;
+    height: 24px;
+  }
+  .logBtn {
+    border-radius: 25px;
+    padding: 10px 20px;
+   border-color: rgb(0, 0, 255);
+   background-color: rgb(255, 0, 0);
+   color: white;
+   font-size: 14px;
+   font-weight: 500;
+   font-style: italic;
   }

@@ -1,24 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import style from './PopularVideos.module.css';
+import { Link } from 'react-router-dom';
+import formatTimeAgo from '../../function/formatTimeAgo';
+import fetchVideoById from '../../api/fetchVideoById';
+import VideoPlayer from '../VideoPlayer/VideoPlayer';
 
-const VideoLink = ({ videoId, thumbnailUrl }) => {
-  const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
-  console.log(videoId)
+const VideoLink = ({ videoId }) => {
+  const time =  formatTimeAgo(videoId.snippet.publishedAt);
+  const videoUrl = `/video/${videoId.id}`;
   return (
-    <a href={videoUrl} target="_blank" rel="noopener noreferrer">
+    <Link to={videoUrl}>
       <img
-        src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}  
-        alt={`Thumbnail for video ${videoId}`}
-        className={style.thumbnail}
+        src={`https://img.youtube.com/vi/${videoId.id}/hqdefault.jpg`}  
+        alt={`Thumbnail for video ${videoId.id}`}
       />
-    </a>
+      <h3>{`${videoId.snippet.title}`}</h3>
+      <p>{time}</p>
+    </Link>
   );
 };
 
 VideoLink.propTypes = {
-  videoId: PropTypes.string.isRequired,
-  thumbnailUrl: PropTypes.string.isRequired,
+  videoId: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    snippet: PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      publishedAt: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
 };
 
 const VideoList = ({ videoIds }) => {
@@ -38,7 +48,15 @@ const VideoList = ({ videoIds }) => {
 };
 
 VideoList.propTypes = {
-  videoIds: PropTypes.arrayOf(PropTypes.string).isRequired,
+  videoIds: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      snippet: PropTypes.shape({
+        publishedAt: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+      }).isRequired,
+    }).isRequired
+  ).isRequired,
 };
 
 export { VideoList };
